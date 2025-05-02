@@ -3,4 +3,5 @@ project(Flopy)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Flopy main.cpp)
+add_executable(Flopy main.cpp
+        src/Lexer.hpp)

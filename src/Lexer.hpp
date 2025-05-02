@@ -1,0 +1,67 @@
+//
+// Created by z1w2 on 02.05.2025.
+//
+
+#ifndef LEXER_HPP
+#define LEXER_HPP
+#include <string>
+#include <vector>
+
+namespace flopy {
+    enum TT {
+        IDENTIFIER,
+        LPAREN, RPAREN,
+        STRING_LIT,
+
+        END_OF_FILE,
+    };
+    struct Token {
+        TT type;
+        std::string value;
+    };
+
+    std::vector<Token> tokenize(std::string source) {
+        std::vector<Token> rs;
+        std::string buffer;
+        size_t size = source.size();
+
+        for (int i = 0; i < size; ++i) {
+            if (isspace(source[i])) continue;
+
+            if (source[i] == '(') rs.push_back({TT::LPAREN, "("});
+            else if (source[i] == ')') rs.push_back({TT::RPAREN, ")"});
+
+            else if (isalpha(source[i]) || source[i] == '_') {
+                while (isalnum(source[i]) || source[i] == '_') {
+                    buffer += source[i];
+                    i++;
+                }
+                i--;
+
+                rs.push_back({TT::IDENTIFIER, buffer});
+            }
+            else if (source[i] == '"') {
+                i++;
+                while (source[i] != '"') {
+                    if (source[i] == '\\') {
+                        i++;
+                        if (source[i] == '"') buffer += "\"";
+                        if (source[i] == 'n') buffer += "\n";
+                        if (source[i] == 'r') buffer += "\r";
+                        if (source[i] == 't') buffer += "\t";
+                        if (source[i] == '\\') buffer += "\\";
+                    }
+                    else
+                        buffer += source[i];
+                    i++;
+                }
+
+                rs.push_back({TT::STRING_LIT, buffer});
+            }
+
+            buffer.clear();
+        }
+    }
+}
+
+#endif //LEXER_HPP
