@@ -7,4 +7,6 @@ add_executable(Flopy main.cpp
         src/Lexer.hpp
         src/XValue.hpp
         src/Expr.hpp
-        src/Expr.hpp)
+        src/Expr.hpp
+        src/Statement.hpp
+        src/Globals.hpp)

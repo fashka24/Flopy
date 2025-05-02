@@ -41,6 +41,10 @@ namespace flopy {
 
         template <typename T_>
         T_ get() { return std::get<T_>(value_); }
+
+        [[nodiscard]] XValueType get_type() const {
+            return type;
+        }
     };
 }
 
