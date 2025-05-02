@@ -10,11 +10,12 @@
 
 namespace flopy {
     enum XValueType {
+        VOID,
         INT, FLOAT, STRING, LIST,
     };
     class XValue {
     private:
-        std::variant<int, float, std::string, std::vector<XValue>>
+        std::variant<std::monostate, int, float, std::string, std::vector<XValue>>
             value_;
         XValueType type;
 
@@ -35,6 +36,8 @@ namespace flopy {
             : type(type) {
             value_ = value;
         }
+        XValue(int n)
+            : value_(std::monostate()), type(XValueType::VOID) {}
 
         template <typename T_>
         T_ get() { return std::get<T_>(value_); }
