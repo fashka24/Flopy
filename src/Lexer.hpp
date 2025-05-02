@@ -61,6 +61,9 @@ namespace flopy {
 
             buffer.clear();
         }
+        rs.push_back({TT::END_OF_FILE, "eof"});
+
+        return rs;
     }
 }
 
