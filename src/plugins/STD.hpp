@@ -15,14 +15,23 @@ namespace flopy {
         std::map<std::string, std::function<XValue(std::vector<XValue>&)>> createFunctions() override {
             return {
             {"puts", [](std::vector<XValue>& args) {
-                for (auto arg : args) {\
+                for (auto arg : args) {
 
                     if (arg.get_type() == XValueType::STRING)
-                        std::cout << arg.get<std::string>() << "\n";
+                        std::cout << arg.get<std::string>();
                 }
 
                 return XValue(0);
             }},
+    {"echo", [](std::vector<XValue>& args) {
+        for (auto arg : args) {
+
+            if (arg.get_type() == XValueType::STRING)
+                std::cout << arg.get<std::string>() << "\n";
+            }
+
+            return XValue(0);
+        }},
         };
         }
     };
