@@ -10,21 +10,36 @@
 #include <string>
 
 #include "XValue.hpp"
+#include "Expr.hpp"
+#include "Exprs.hpp"
+#include "plugins/Plugins.hpp"
 
 namespace flopy {
-    inline XValue FL_NULL = XValue(0);
+    inline XValue FL_NULL = XValue(1);
+    using GlobalFunction = std::function<XValue(std::vector<XValue>&)>;
+    /**
+     *
+     */
     inline
-    std::map<std::string, std::function<XValue(std::vector<XValue>&)>>
-        functions {
-            {"puts", [](std::vector<XValue>& args) {
-                for (auto arg: args) {
-                    if (arg.get_type() == XValueType::STRING)
-                        std::cout << arg.get<std::string>() << "\n";
-                }
+    std::map<std::string, GlobalFunction>
+        functions;
 
-                return FL_NULL;
-            }},
-        };
+    inline void load_plugins() {
+        for (auto plugin: plugins) {
+            auto _tmp = plugin->createFunctions();
+            for (auto& tmp: _tmp) {
+                functions[tmp.first] = tmp.second;
+            }
+        }
+    }
+
+    inline GlobalFunction get_global_func(const std::string& name) {
+        for (auto& func: functions) {
+            if (func.first == name)
+                return func.second;
+        }
+        throw std::runtime_error("unknown function " + name);
+    }
 }
 
 #endif //GLOBALS_HPP

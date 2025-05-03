@@ -2,7 +2,7 @@
 
 ## Example
 ```F#
-puts "Hello world from Flopy!\n"
+puts("Hello world from Flopy!\n")
 ```
 
 ```shell
