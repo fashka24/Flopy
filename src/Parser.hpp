@@ -13,7 +13,7 @@
 #include "Exprs.hpp"
 #include "Lexer.hpp"
 #include "Statement.hpp"
-#include "JIT/JITInstuction.hpp"
+#include "JIT/JITInstruction.hpp"
 
 namespace flopy {
     class Parser {

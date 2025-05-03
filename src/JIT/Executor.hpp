@@ -7,7 +7,7 @@
 #include <stack>
 #include <vector>
 
-#include "JITInstuction.hpp"
+#include "JITInstruction.hpp"
 #include "../Globals.hpp"
 
 namespace flopy::jit {

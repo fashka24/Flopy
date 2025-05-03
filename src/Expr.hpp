@@ -5,7 +5,7 @@
 #ifndef EXPR_HPP
 #define EXPR_HPP
 #include "XValue.hpp"
-#include "JIT/JITInstuction.hpp"
+#include "JIT/JITInstruction.hpp"
 
 namespace flopy {
     class Expr {
