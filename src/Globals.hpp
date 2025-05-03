@@ -18,9 +18,6 @@ namespace flopy {
     inline XValue FL_NULL = XValue(1);
     using GlobalFunction = std::function<XValue(std::vector<XValue>&)>;
 
-    struct GlobalVariable {
-        XValue value;
-    };
     /**
      *
      */
@@ -28,7 +25,7 @@ namespace flopy {
     std::map<std::string, GlobalFunction>
         functions;
     inline
-    std::map<std::string, GlobalVariable>
+    std::map<std::string, XValue>
         variables;
 
     inline void load_plugins() {
@@ -53,7 +50,7 @@ namespace flopy {
         }
         return false;
     }
-    inline GlobalVariable get_global_variable(const std::string& name) {
+    inline XValue get_global_variable(const std::string& name) {
         for (auto& var: variables) {
             if (var.first == name)
                 return var.second;

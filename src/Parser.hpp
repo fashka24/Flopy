@@ -31,7 +31,7 @@ namespace flopy {
 
         Token eat(TT t) {
             if (current().type != t) {
-                throw std::runtime_error("Expected token");
+                throw std::runtime_error("Expected token " + std::to_string(t));
             }
             return toks[pos_++];
         }
@@ -40,9 +40,23 @@ namespace flopy {
             auto temp = _expr()->eval(instructions_);
         }
 
+        Expr* _variable_declaration_parse() {
+            Token name = eat(TT::IDENTIFIER);
+            eat(TT::EQ);
+
+            Expr* value = _expr();
+            value->eval(instructions_);
+
+            return new VariableDeclarationExpr(name.value);
+        }
+
         Expr* _expr() {
             if (current().type == TT::IDENTIFIER) {
                 Token name = eat(TT::IDENTIFIER);
+
+                if (name.value == "let") {
+                    return _variable_declaration_parse();
+                }
 
                 if (current().type == TT::LPAREN) {
                     std::vector<Expr*> expr_args;
@@ -70,13 +84,15 @@ namespace flopy {
 
                     return new FunctionExecExpr(name.value, args);
                 }
+                // trying to get variable
+                return new VariableGettingExpr(name.value);
             }
             else if (current().type == TT::STRING_LIT) {
                 Token temp = eat(TT::STRING_LIT);
                 return new StringExpr(temp.value);
             }
             else if (current().type == TT::NUM_LIT) {
-                Token temp = eat(TT::STRING_LIT);
+                Token temp = eat(TT::NUM_LIT);
 
                 if (toks[pos_+1].type == TT::DOT) {
                     pos_++;
@@ -99,7 +115,6 @@ namespace flopy {
         std::vector<jit::JITInstruction> parsing() {
             while (pos_ < size_ && current().type != TT::END_OF_FILE) {
                 _parse();
-                pos_++;
             }
             instructions_.push_back({
                 jit::HALT, FL_NULL

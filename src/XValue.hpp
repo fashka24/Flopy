@@ -38,6 +38,8 @@ namespace flopy {
         }
         XValue(int n)
             : value_(std::monostate()), type(XValueType::VOID) {}
+        XValue()
+            : value_(std::monostate()), type(XValueType::VOID) {}
 
         template <typename T_>
         T_ get() { return std::get<T_>(value_); }

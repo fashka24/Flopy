@@ -102,13 +102,13 @@ namespace flopy::jit {
                 case STORE_VAR: {
                     auto name = fetch_byte().argument.get<std::string>();
 
-                    variables[name].value = stack_.top(); stack_.pop();
+                    variables[name] = stack_.top(); stack_.pop();
                     break;
                 }
                 case LOAD_VAR: {
                     auto name = fetch_byte().argument.get<std::string>();
 
-                    stack_.push(get_global_variable(name).value);
+                    stack_.push(get_global_variable(name));
                     break;
                 }
                 case SYSTEM_CALL: {

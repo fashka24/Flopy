@@ -36,7 +36,7 @@ namespace flopy {
             else if (source[i] == ')') rs.push_back({TT::RPAREN, ")"});
             else if (source[i] == ',') rs.push_back({TT::COMMA, ","});
             else if (source[i] == '.') rs.push_back({TT::DOT, "."});
-            else if (source[i] == '#') rs.push_back({TT::EQ, "="});
+            else if (source[i] == '=') rs.push_back({TT::EQ, "="});
 
             else if (isalpha(source[i]) || source[i] == '_') {
                 while (isalnum(source[i]) || source[i] == '_') {
