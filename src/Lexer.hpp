@@ -11,6 +11,7 @@ namespace flopy {
     enum TT {
         IDENTIFIER,
         LPAREN, RPAREN,
+        LBLOCK, RBLOCK, // [ ]
         COMMA, EQ,
         STRING_LIT,
         NUM_LIT, DOT,
@@ -34,6 +35,8 @@ namespace flopy {
 
             if (source[i] == '(') rs.push_back({TT::LPAREN, "("});
             else if (source[i] == ')') rs.push_back({TT::RPAREN, ")"});
+            else if (source[i] == '[') rs.push_back({TT::LBLOCK, "["});
+            else if (source[i] == ']') rs.push_back({TT::RBLOCK, "]"});
             else if (source[i] == ',') rs.push_back({TT::COMMA, ","});
             else if (source[i] == '.') rs.push_back({TT::DOT, "."});
             else if (source[i] == '=') rs.push_back({TT::EQ, "="});

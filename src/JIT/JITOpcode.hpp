@@ -13,6 +13,7 @@ namespace flopy::jit {
         POP_TOP,                // remove top stack
         STORE_VAR,              // create and set variable (set by top of stack)
         LOAD_VAR,               // push value of variable to stack
+        LIST_BUILD,             // build list by n numbers in stack
         /*
          * NOTE:
          * in main scope return opcode equals exit(value)

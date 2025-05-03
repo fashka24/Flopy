@@ -7,33 +7,47 @@
 
 #include "IPlugin.hpp"
 #include <iostream>
+#include <sstream>
 
 namespace flopy {
     class STDPlugin: public IPlugin {
+    private:
+        std::string xvalue2str(XValue arg) {
+            std::stringstream ss;
+
+            if (arg.get_type() == XValueType::STRING)
+                ss << arg.get<std::string>();
+            if (arg.get_type() == XValueType::INT)
+                ss << arg.get<int>();
+            if (arg.get_type() == XValueType::FLOAT)
+                ss << arg.get<float>();
+            if (arg.get_type() == XValueType::LIST) {
+                ss << "[";
+                auto _sv = arg.get<std::vector<XValue>>();
+                auto _sz = _sv.size();
+                for (int i = 0; i < _sz; ++i) {
+                    ss << xvalue2str(_sv[i]);
+                    if (i + 1 != _sz)
+                        ss << ", ";
+                }
+                ss << "]";
+            }
+
+            return ss.str();
+        }
     public:
         std::map<std::string, std::function<XValue(std::vector<XValue>&)>> createFunctions() override {
             return {
-            {"puts", [](std::vector<XValue>& args) {
+            {"puts", [this](std::vector<XValue>& args) {
                 for (auto arg : args) {
-
-                    if (arg.get_type() == XValueType::STRING)
-                        std::cout << arg.get<std::string>();
-                    if (arg.get_type() == XValueType::INT)
-                        std::cout << arg.get<int>();
-                    if (arg.get_type() == XValueType::FLOAT)
-                        std::cout << arg.get<float>();
+                    std::cout << this->xvalue2str(arg);
                 }
 
                 return XValue(0);
             }},
-    {"echo", [](std::vector<XValue>& args) {
+    {"echo", [this](std::vector<XValue>& args) {
             for (auto arg : args) {
-                if (arg.get_type() == XValueType::STRING)
-                    std::cout << arg.get<std::string>() << "\n";
-                if (arg.get_type() == XValueType::INT)
-                    std::cout << arg.get<int>() << "\n";
-                if (arg.get_type() == XValueType::FLOAT)
-                    std::cout << arg.get<float>() << "\n";
+                std::cout << this->xvalue2str(arg) << "\n";
             }
 
             return XValue(0);

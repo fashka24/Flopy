@@ -105,6 +105,20 @@ namespace flopy {
 
                 return new IntExpr(std::stoi(temp.value));
             }
+            else if (current().type == TT::LBLOCK) {
+                eat(LBLOCK);
+                std::vector<XValue> elements;
+
+                while (current().type != TT::RBLOCK) {
+                    elements.push_back(_expr()->eval(instructions_));
+                    if (current().type != TT::RBLOCK) {
+                        eat(TT::COMMA);
+                    }
+                }
+                eat(RBLOCK);
+
+                return new ListExpr(static_cast<int>(elements.size()));
+            }
             throw std::runtime_error("Unexpected token type in expression");
         }
 

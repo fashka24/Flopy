@@ -11,24 +11,6 @@
 #include "../Globals.hpp"
 
 namespace flopy::jit {
-    inline std::vector<XValue> get_n_elements(std::stack<XValue>& s, int n) {
-        std::vector<XValue> elements;
-        std::stack<XValue> tempStack;
-
-        for (int i = 0; i < n && !s.empty(); ++i) {
-            elements.push_back(s.top());
-            tempStack.push(s.top());
-            s.pop();
-        }
-
-        while (!tempStack.empty()) {
-            s.push(tempStack.top());
-            tempStack.pop();
-        }
-
-        return elements;
-    }
-
     class Executor {
     private:
         std::vector<JITInstruction> instructions_;
@@ -38,6 +20,22 @@ namespace flopy::jit {
 
         JITInstruction fetch_byte() {
             return instructions_[pos];
+        }
+        inline std::vector<XValue> get_n_elements(int n) {
+            std::vector<XValue> elements;
+            std::stack<XValue> tempStack;
+
+            for (int i = 0; i < n && !stack_.empty(); ++i) {
+                elements.push_back(stack_.top());
+                tempStack.push(stack_.top());
+                stack_.pop();
+            }
+
+            while (!tempStack.empty()) {
+                tempStack.pop();
+            }
+
+            return elements;
         }
 
     public:
@@ -88,7 +86,7 @@ namespace flopy::jit {
                         .get<int>());
 
                     auto _tmp = call_stack_.top();
-                    auto _tmp_s = get_n_elements(stack_, args_number);
+                    auto _tmp_s = get_n_elements(args_number);
 
                     auto _tmp_result = _tmp(_tmp_s);
                     if (_tmp_result.get_type() != XValueType::VOID)
@@ -103,6 +101,18 @@ namespace flopy::jit {
                     auto name = fetch_byte().argument.get<std::string>();
 
                     variables[name] = stack_.top(); stack_.pop();
+                    break;
+                }
+                case LIST_BUILD: {
+                    int elem_number = fetch_byte()
+                       .argument
+                       .get<int>();
+
+                    auto _tmp_s = get_n_elements(elem_number);
+                    std::reverse(_tmp_s.begin(), _tmp_s.end());
+
+                    stack_.push(XValue(_tmp_s, XValueType::LIST));
+
                     break;
                 }
                 case LOAD_VAR: {

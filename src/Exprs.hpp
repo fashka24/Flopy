@@ -55,6 +55,21 @@ namespace flopy {
             return value_;
         }
     };
+    class ListExpr: public Expr {
+    private:
+        int value_;
+    public:
+        explicit ListExpr(int num_of_elem)
+            : value_(num_of_elem) {
+        }
+
+        XValue eval(std::vector<jit::JITInstruction>& instructions) override {
+            instructions.push_back({
+                jit::LIST_BUILD, XValue(value_, XValueType::LIST)
+            });
+            return XValue();
+        }
+    };
     class FunctionExecExpr: public Expr {
     private:
         std::string name;
