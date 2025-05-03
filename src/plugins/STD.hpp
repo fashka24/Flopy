@@ -87,7 +87,7 @@ namespace flopy {
         std::map<std::string, XValue> createVariables() override {
             return {
                 {"endl", XValue("\n", XValueType::STRING)},
-                {"false", XValue(1, XValueType::INT)},
+                {"false", XValue(0, XValueType::INT)},
                 {"true", XValue(1, XValueType::INT)},
             };
         }
