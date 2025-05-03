@@ -34,3 +34,19 @@ cmake --build . --target fli -j 18
 ```bash
 ./fli example/hello-world.flp
 ```
+
+## Byte-code
+
+Byte-code has 1 argument syntax and inspired by `Python VM`.
+
+### Source code
+```python
+puts("Hello world!\n")
+```
+### Byte code
+```asm
+LOAD_CONST "Hello world\n"  ;; push string to stack
+LOAD_FUNCTION "puts"        ;; push function "puts" to call stack
+CALL 1                      ;; call top function in call stack with 1 arguments from top of stack ("Hello world\n")
+HALT                        ;; end of program for byte code interpreter
+```
