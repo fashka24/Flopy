@@ -52,3 +52,7 @@ LOAD_FUNCTION "puts"        ;; Push the "puts" function onto the call stack
 CALL 1                      ;; Call the function at the top of the call stack with 1 argument from the stack ("Hello world\n")
 HALT                        ;; Terminate the program for the bytecode interpreter
 ```
+
+## Documentation
+
+Full documentation you can see [here](https://github.com/fashka24/Flopy/tree/master/docs)
