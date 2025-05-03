@@ -11,7 +11,8 @@ namespace flopy::jit {
         LOAD_CONST,             // LOAD_CONST push r-value to stack
         CALL,                   // call top function from stack
         POP_TOP,                // remove top stack
-        STORE_TOP,              // create and set variable (set by top of stack)
+        STORE_VAR,              // create and set variable (set by top of stack)
+        LOAD_VAR,               // push value of variable to stack
         /*
          * NOTE:
          * in main scope return opcode equals exit(value)

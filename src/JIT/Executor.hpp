@@ -90,7 +90,9 @@ namespace flopy::jit {
                     auto _tmp = call_stack_.top();
                     auto _tmp_s = get_n_elements(stack_, args_number);
 
-                    _tmp(_tmp_s);
+                    auto _tmp_result = _tmp(_tmp_s);
+                    if (_tmp_result.get_type() != XValueType::VOID)
+                        stack_.push(_tmp_result);
                     break;
                 }
                 case POP_TOP: {
