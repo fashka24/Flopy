@@ -1,5 +1,14 @@
 # Documentation
 
+## Types
+
+```python
+123       # int
+3.04      # float
+"hello"   # string
+[1, 2, 3] # list
+```
+
 ## Built-in functions
 
 ### puts(...)
