@@ -41,7 +41,7 @@ Byte-code has 1 argument syntax and inspired by `Python VM`.
 
 ### Source code
 ```python
-# Function puts print to stdout any text
+# Function "puts" print to stdout any text
 
 puts("Hello world!\n")
 ```
