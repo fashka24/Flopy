@@ -30,6 +30,8 @@ namespace flopy {
         for (int i = 0; i < size; ++i) {
             if (isspace(source[i])) continue;
 
+            if (source[i] == '#') while (i < size && source[i] != '\n') i++;
+
             if (source[i] == '(') rs.push_back({TT::LPAREN, "("});
             else if (source[i] == ')') rs.push_back({TT::RPAREN, ")"});
             else if (source[i] == ',') rs.push_back({TT::COMMA, ","});
