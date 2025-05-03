@@ -78,6 +78,36 @@ namespace flopy {
             return {0};
         }
     };
+    class VariableDeclarationExpr: public Expr {
+    private:
+        std::string name;
+
+    public:
+        explicit VariableDeclarationExpr(const std::string &name)
+            : name(name) {
+        }
+
+        XValue eval(std::vector<jit::JITInstruction> &instructions) override {
+            instructions.push_back({
+                jit::STORE_VAR, XValue(name, XValueType::STRING)
+            });
+        }
+    };
+    class VariableGettingExpr: public Expr {
+    private:
+        std::string name;
+
+    public:
+        explicit VariableGettingExpr(const std::string &name)
+            : name(name) {
+        }
+
+        XValue eval(std::vector<jit::JITInstruction> &instructions) override {
+            instructions.push_back({
+                jit::LOAD_VAR, XValue(name, XValueType::STRING)
+            });
+        }
+    };
 }
 
 #endif //EXPRS_HPP
