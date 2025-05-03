@@ -8,9 +8,10 @@
 namespace flopy::jit {
     enum JITOpcode {
         LOAD_FUNCTION,          // push function to call stack
-        LOAD_CONST,             // LOAD_*CONST push r-value to stack
+        LOAD_CONST,             // LOAD_CONST push r-value to stack
         CALL,                   // call top function from stack
         POP_TOP,                // remove top stack
+        STORE_TOP,              // create and set variable (set by top of stack)
         /*
          * NOTE:
          * in main scope return opcode equals exit(value)
