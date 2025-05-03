@@ -15,7 +15,7 @@
 #include "plugins/Plugins.hpp"
 
 namespace flopy {
-    inline XValue FL_NULL = XValue(1);
+    inline XValue FL_NULL = XValue();
     using GlobalFunction = std::function<XValue(std::vector<XValue>&)>;
 
     /**
@@ -33,6 +33,10 @@ namespace flopy {
             auto _tmp = plugin->createFunctions();
             for (auto& tmp: _tmp) {
                 functions[tmp.first] = tmp.second;
+            }
+            auto _tmp2 = plugin->createVariables();
+            for (auto& tmp: _tmp2) {
+                variables[tmp.first] = tmp.second;
             }
         }
     }

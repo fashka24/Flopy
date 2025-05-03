@@ -4,14 +4,14 @@
 
 ### puts(...)
 ```python
-# Print arguments(string) to stdout
+# Print arguments to stdout
 
 puts("some", " ", "text\n")
 ```
 
 ### echo(...)
 ```python
-# Print arguments(string) to stdout with new line on end
+# Print arguments to stdout with new line on end
 
 echo("some", " ", "text")  # Automatic add "\n" on every argument
 ```
@@ -29,4 +29,12 @@ puts(str(123))
 let x = 123
 
 puts(str(x))
+```
+
+## Built-in variables
+
+```python
+endl = "\n"
+false = 0
+true = 1
 ```

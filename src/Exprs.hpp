@@ -75,7 +75,7 @@ namespace flopy {
             instructions.push_back({
                 jit::CALL, XValue(static_cast<int>(args.size()), XValueType::INT)
             });
-            return {0};
+            return XValue();
         }
     };
     class VariableDeclarationExpr: public Expr {
@@ -91,7 +91,7 @@ namespace flopy {
             instructions.push_back({
                 jit::STORE_VAR, XValue(name, XValueType::STRING)
             });
-            return {0};
+            return XValue();
         }
     };
     class VariableGettingExpr: public Expr {
@@ -107,7 +107,7 @@ namespace flopy {
             instructions.push_back({
                 jit::LOAD_VAR, XValue(name, XValueType::STRING)
             });
-            return {0};
+            return XValue();
         }
     };
 }

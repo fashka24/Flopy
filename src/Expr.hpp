@@ -11,7 +11,7 @@ namespace flopy {
     class Expr {
     public:
         virtual XValue eval(std::vector<jit::JITInstruction>& instructions) {
-            return {0};
+            return XValue();
         }
     };
     class VoidExpr: public Expr{
@@ -19,7 +19,7 @@ namespace flopy {
         VoidExpr() {}
 
         XValue eval(std::vector<jit::JITInstruction>& instructions) override {
-            return {0};
+            return XValue();
         }
     };
 }

@@ -18,15 +18,22 @@ namespace flopy {
 
                     if (arg.get_type() == XValueType::STRING)
                         std::cout << arg.get<std::string>();
+                    if (arg.get_type() == XValueType::INT)
+                        std::cout << arg.get<int>();
+                    if (arg.get_type() == XValueType::FLOAT)
+                        std::cout << arg.get<float>();
                 }
 
                 return XValue(0);
             }},
     {"echo", [](std::vector<XValue>& args) {
-        for (auto arg : args) {
-
-            if (arg.get_type() == XValueType::STRING)
-                std::cout << arg.get<std::string>() << "\n";
+            for (auto arg : args) {
+                if (arg.get_type() == XValueType::STRING)
+                    std::cout << arg.get<std::string>() << "\n";
+                if (arg.get_type() == XValueType::INT)
+                    std::cout << arg.get<int>() << "\n";
+                if (arg.get_type() == XValueType::FLOAT)
+                    std::cout << arg.get<float>() << "\n";
             }
 
             return XValue(0);
@@ -46,7 +53,43 @@ namespace flopy {
 
                     return temp;
                 }},
+                {"add", [](std::vector<XValue>& args) {
+                    XValue v{};
+                    if (args.size() <= 0 && args.size() >= 3)
+                        throw std::runtime_error("too few arguments for function \"str\"");
+                    v = args[0] + args[1];
+                    return v;
+                }},
+                {"sub", [](std::vector<XValue>& args) {
+                    XValue v{};
+                    if (args.size() <= 0 && args.size() >= 3)
+                        throw std::runtime_error("too few arguments for function \"str\"");
+                    v = args[0] - args[1];
+                    return v;
+                }},
+                {"mul", [](std::vector<XValue>& args) {
+                    XValue v{};
+                    if (args.size() <= 0 && args.size() >= 3)
+                        throw std::runtime_error("too few arguments for function \"str\"");
+                    v = args[0] * args[1];
+                    return v;
+                }},
+                {"div", [](std::vector<XValue>& args) {
+                    XValue v{};
+                    if (args.size() <= 0 && args.size() >= 3)
+                        throw std::runtime_error("too few arguments for function \"str\"");
+                    v = args[0] / args[1];
+                    return v;
+                }},
         };
+        }
+
+        std::map<std::string, XValue> createVariables() override {
+            return {
+                {"endl", XValue("\n", XValueType::STRING)},
+                {"false", XValue(1, XValueType::INT)},
+                {"true", XValue(1, XValueType::INT)},
+            };
         }
     };
 }

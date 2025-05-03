@@ -17,6 +17,9 @@ namespace flopy {
         virtual std::map<std::string, std::function<XValue(std::vector<XValue>&)>> createFunctions() {
             return {};
         }
+        virtual std::map<std::string, XValue> createVariables() {
+            return {};
+        }
     };
 }
 
