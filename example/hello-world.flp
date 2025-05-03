@@ -1,1 +1,5 @@
+# Function "puts" print to stdout any text
+#
+# If you wont to auto "\n" end, use "echo"
+
 puts("Hello world!\n")
