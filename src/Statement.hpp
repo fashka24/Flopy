@@ -14,6 +14,12 @@ namespace flopy {
     public:
         virtual void execute() {}
     };
+    class VoidStatement: public Statement {
+    public:
+        VoidStatement() {}
+
+        void execute() override {}
+    };
 }
 
 #endif //STATEMENT_HPP

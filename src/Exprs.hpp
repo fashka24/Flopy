@@ -12,6 +12,8 @@ namespace flopy {
     private:
         XValue value_;
     public:
+        virtual ~StringExpr() = default;
+
         explicit StringExpr(const std::string &value)
             : value_(value, XValueType::STRING) {
         }
@@ -49,7 +51,12 @@ namespace flopy {
               args(args) {
         }
 
+        virtual ~FunctionExecExpr() = default;
+
         XValue eval(std::vector<jit::JITInstruction> &instructions) override {
+            instructions.push_back({
+                jit::LOAD_FUNCTION, XValue(name, XValueType::STRING)
+            });
             instructions.push_back({
                 jit::CALL, XValue(static_cast<int>(args.size()), XValueType::INT)
             });

@@ -40,6 +40,13 @@ namespace flopy {
         }
         throw std::runtime_error("unknown function " + name);
     }
+    inline bool is_global_func(const std::string& name) {
+        for (auto& func: functions) {
+            if (func.first == name)
+                return true;
+        }
+        return false;
+    }
 }
 
 #endif //GLOBALS_HPP

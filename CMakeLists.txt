@@ -16,4 +16,5 @@ add_executable(Flopy main.cpp
         src/plugins/Plugins.hpp
         src/JIT/JITOpcode.hpp
         src/JIT/JITInstuction.hpp
-        src/JIT/Executor.hpp)
+        src/JIT/Executor.hpp
+        src/Parser.hpp)
