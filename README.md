@@ -45,8 +45,8 @@ puts("Hello world!\n")
 ```
 ### Byte code
 ```asm
-LOAD_CONST "Hello world\n"  ;; push string to stack
-LOAD_FUNCTION "puts"        ;; push function "puts" to call stack
-CALL 1                      ;; call top function in call stack with 1 arguments from top of stack ("Hello world\n")
-HALT                        ;; end of program for byte code interpreter
+LOAD_CONST "Hello world\n"  ;; Push the string "Hello world\n" onto the stack
+LOAD_FUNCTION "puts"        ;; Push the "puts" function onto the call stack
+CALL 1                      ;; Call the function at the top of the call stack with 1 argument from the stack ("Hello world\n")
+HALT                        ;; Terminate the program for the bytecode interpreter
 ```
