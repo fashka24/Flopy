@@ -56,28 +56,28 @@ namespace flopy {
                 {"add", [](std::vector<XValue>& args) {
                     XValue v{};
                     if (args.size() <= 0 && args.size() >= 3)
-                        throw std::runtime_error("too few arguments for function \"str\"");
+                        throw std::runtime_error("too few arguments for function \"add\"");
                     v = args[0] + args[1];
                     return v;
                 }},
                 {"sub", [](std::vector<XValue>& args) {
                     XValue v{};
                     if (args.size() <= 0 && args.size() >= 3)
-                        throw std::runtime_error("too few arguments for function \"str\"");
+                        throw std::runtime_error("too few arguments for function \"sub\"");
                     v = args[0] - args[1];
                     return v;
                 }},
                 {"mul", [](std::vector<XValue>& args) {
                     XValue v{};
                     if (args.size() <= 0 && args.size() >= 3)
-                        throw std::runtime_error("too few arguments for function \"str\"");
+                        throw std::runtime_error("too few arguments for function \"mul\"");
                     v = args[0] * args[1];
                     return v;
                 }},
                 {"div", [](std::vector<XValue>& args) {
                     XValue v{};
                     if (args.size() <= 0 && args.size() >= 3)
-                        throw std::runtime_error("too few arguments for function \"str\"");
+                        throw std::runtime_error("too few arguments for function \"div\"");
                     v = args[0] / args[1];
                     return v;
                 }},
