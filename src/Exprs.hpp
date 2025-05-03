@@ -40,6 +40,21 @@ namespace flopy {
             return value_;
         }
     };
+    class FloatExpr: public Expr {
+    private:
+        XValue value_;
+    public:
+        explicit FloatExpr(const float &value)
+            : value_(value, XValueType::FLOAT) {
+        }
+
+        XValue eval(std::vector<jit::JITInstruction>& instructions) override {
+            instructions.push_back({
+                jit::LOAD_CONST, value_
+            });
+            return value_;
+        }
+    };
     class FunctionExecExpr: public Expr {
     private:
         std::string name;

@@ -13,6 +13,7 @@ namespace flopy {
         LPAREN, RPAREN,
         COMMA,
         STRING_LIT,
+        NUM_LIT, DOT,
 
         END_OF_FILE,
     };
@@ -32,6 +33,7 @@ namespace flopy {
             if (source[i] == '(') rs.push_back({TT::LPAREN, "("});
             else if (source[i] == ')') rs.push_back({TT::RPAREN, ")"});
             else if (source[i] == ',') rs.push_back({TT::COMMA, ","});
+            else if (source[i] == '.') rs.push_back({TT::NUM_LIT, "."});
 
             else if (isalpha(source[i]) || source[i] == '_') {
                 while (isalnum(source[i]) || source[i] == '_') {
@@ -59,6 +61,15 @@ namespace flopy {
                 }
 
                 rs.push_back({TT::STRING_LIT, buffer});
+            }
+            else if (isdigit(source[i])) {
+                while (isdigit(source[i])) {
+                    buffer += source[i];
+                    i++;
+                }
+                i--;
+
+                rs.push_back({TT::NUM_LIT, buffer});
             }
 
             buffer.clear();

@@ -75,6 +75,20 @@ namespace flopy {
                 Token temp = eat(TT::STRING_LIT);
                 return new StringExpr(temp.value);
             }
+            else if (current().type == TT::NUM_LIT) {
+                Token temp = eat(TT::STRING_LIT);
+
+                if (toks[pos_+1].type == TT::DOT) {
+                    pos_++;
+                    temp.value += ".";
+                    eat(TT::DOT);
+                    Token second = eat(TT::NUM_LIT);
+
+                    return new FloatExpr(std::stof(temp.value));
+                }
+
+                return new IntExpr(std::stoi(temp.value));
+            }
             throw std::runtime_error("Unexpected token type in expression");
         }
 
