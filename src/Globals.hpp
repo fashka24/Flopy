@@ -32,7 +32,6 @@ namespace flopy {
             }
         }
     }
-
     inline GlobalFunction get_global_func(const std::string& name) {
         for (auto& func: functions) {
             if (func.first == name)

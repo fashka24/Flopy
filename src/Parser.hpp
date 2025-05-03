@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <vector>
+#include <algorithm>
 
 #include "Expr.hpp"
 #include "Exprs.hpp"
@@ -54,6 +55,13 @@ namespace flopy {
                         }
                     }
                     eat(TT::RPAREN);
+
+                    /*
+                     * BUG FIX:
+                     *      arguments contains in not right sequence
+                     */
+
+                    std::reverse(expr_args.begin(), expr_args.end());
 
                     std::vector<XValue> args;
                     for (auto& expr_arg : expr_args) {
